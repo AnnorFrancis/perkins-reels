@@ -13,11 +13,11 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="app.css?v=510fd261">
+<link rel="stylesheet" href="app.css?v=eb6ca023">
 </head>
 <body>
 <header class="top">
-  <div class="brandrow"><span class="brand" id="brand">Posts</span><button class="todaybtn" id="today" type="button">Today</button></div>
+  <div class="brandrow"><span class="brand" id="brand">Posts</span><span class="btns"><button class="todaybtn" id="timesbtn" type="button" hidden>Times</button><button class="todaybtn" id="today" type="button">Today</button></span></div>
   <div class="dayrow">
     <button class="nav" id="prev" type="button" aria-label="Previous day"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="dayinfo"><h1 id="dayname">Loading</h1><p id="daysub"></p></div>
@@ -26,9 +26,10 @@
   <nav class="strip" id="strip" aria-label="Pick a day"></nav>
 </header>
 <main id="main"></main>
+<div class="sheet" id="sheet" role="dialog" aria-label="Posting times" hidden><div class="sheetin"><div class="sheethead"><b>Posting times</b><button class="todaybtn" id="sheetx" type="button">Close</button></div><img id="timesimg" alt="Posting times in Ghana time. Morning picture: 8:00 AM Monday to Friday, 10:00 AM Saturday and Sunday. Evening reel every day: YouTube 6:00 PM, TikTok 7:00 PM, Instagram 7:30 PM. Best days: Saturday, Sunday, Monday."><p>Press and hold the picture to save it.</p></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <noscript><p class="noscript">This calendar needs JavaScript switched on.</p></noscript>
-<script src="posts.js?v=510fd261"></script>
-<script src="app.js?v=510fd261"></script>
+<script src="posts.js?v=eb6ca023"></script>
+<script src="app.js?v=eb6ca023"></script>
 </body>
 </html>

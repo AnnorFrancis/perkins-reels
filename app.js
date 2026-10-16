@@ -212,8 +212,9 @@
       ? '<video src="' + esc(p.media.video) + '" poster="' + esc(p.media.poster) + '" controls playsinline preload="none"></video>'
       : feeds.map(function (u, i) { return '<img src="' + esc(u) + '" alt="' + esc(p.label) + ' post, ' + when + (feeds.length > 1 ? ", slide " + (i + 1) + " of " + feeds.length : "") + '" decoding="async">'; }).join("");
     el.innerHTML =
-      '<div class="phead"><span class="slot">' + (p.slotName || (p.slot === "AM" ? "Morning" : "Evening")) + '</span><span class="label">' + esc(p.label) + '</span><span class="pcount' + (n === ORDER.length ? " all" : "") + '">' + n + " of " + ORDER.length + " shared</span></div>" +
+      '<div class="phead"><span class="slot">' + (p.slotName || (p.slot === "AM" ? "Morning" : "Evening")) + (p.when ? " · " + esc(p.when) : "") + '</span><span class="label">' + esc(p.label) + '</span><span class="pcount' + (n === ORDER.length ? " all" : "") + '">' + n + " of " + ORDER.length + " shared</span></div>" +
       (p.title ? '<p class="ptitle">' + esc(p.title) + "</p>" : "") +
+      (p.note ? '<p class="pnote">' + esc(p.note) + "</p>" : "") +
       '<div class="media' + (feeds.length > 1 && !v ? " multi" : "") + '">' + media + "</div>" +
       '<div class="plats"></div>' +
       '<details class="more"><summary>More: captions and saving</summary><div class="caps"></div></details>';
@@ -223,7 +224,7 @@
       var P = PLAT[k], key = p.id + ":" + k, b = document.createElement("button");
       b.type = "button";
       b.className = "plat " + P.cls + (done[key] ? " done" : "") + (ORDER.length % 2 && i === ORDER.length - 1 ? " wide" : "") + (ready(p, P.file) ? "" : " wait");
-      b.innerHTML = '<span class="ic">' + svg(k) + '</span><span class="tx"><b>' + P.name + "</b><small>" + subOf(P, p) + '</small></span><span class="tick">' + TICK + "</span>";
+      b.innerHTML = '<span class="ic">' + svg(k) + '</span><span class="tx"><b>' + P.name + "</b><small>" + subOf(P, p) + (p.times && p.times[k] ? " · " + p.times[k] : "") + '</small></span><span class="tick">' + TICK + "</span>";
       b.setAttribute("aria-label", P.name + (done[key] ? ", shared" : ""));
       b.addEventListener("click", function () { share(p, k, b); });
       plats.appendChild(b);
@@ -261,6 +262,14 @@
   $("prev").addEventListener("click", function () { var i = days.indexOf(cur); if (i > 0) go(days[i - 1]); });
   $("next").addEventListener("click", function () { var i = days.indexOf(cur); if (i < days.length - 1) go(days[i + 1]); });
   $("today").addEventListener("click", function () { go(startDay()); });
+  // posting-times sheet: the schedule picture, press and hold to save it
+  if (CAL.times) {
+    var sheet = $("sheet"); $("timesimg").src = CAL.times; $("timesbtn").hidden = false;
+    $("timesbtn").addEventListener("click", function () { sheet.hidden = false; });
+    $("sheetx").addEventListener("click", function () { sheet.hidden = true; });
+    sheet.addEventListener("click", function (e) { if (e.target === sheet) sheet.hidden = true; });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") sheet.hidden = true; });
+  }
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") { var t = iso(new Date()); if (t !== today) { today = t; go(startDay()); } else render(false); }
   });
