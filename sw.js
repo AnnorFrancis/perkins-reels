@@ -1,8 +1,8 @@
 /* One-Tap Post Calendar: works offline after the first open.
    Page, code and post list: network first (fresh when online). Pictures and videos: cache first (their URLs change when they change).
    Paths are resolved against the worker's scope, so the app also works from a subfolder such as a GitHub Pages project site. */
-var SHELL = "otpc-shell-4e8b442c", MEDIA = "otpc-media-v1";
-var CORE = ["./", "index.html", "app.css?v=4e8b442c", "app.js?v=4e8b442c", "posts.js?v=4e8b442c", "manifest.webmanifest", "icons/icon-192.png"];
+var SHELL = "otpc-shell-510fd261", MEDIA = "otpc-media-v1";
+var CORE = ["./", "index.html", "app.css?v=510fd261", "app.js?v=510fd261", "posts.js?v=510fd261", "manifest.webmanifest", "icons/icon-192.png"];
 var MEDIA_PATH = new URL("m/", self.registration.scope).pathname;
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(SHELL).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));
